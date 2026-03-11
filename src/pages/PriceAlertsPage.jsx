@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { getPriceAlerts, setPriceAlert } from '../services/user.service';
 import toast from 'react-hot-toast';
-import { Bell, BellRing, Target, DollarSign, Tag, CheckCircle2 } from 'lucide-react';
+import { Bell, BellRing, Target, IndianRupee, Tag, CheckCircle2 } from 'lucide-react';
 
 export default function PriceAlertsPage() {
   const [alerts, setAlerts] = useState([]);
@@ -63,10 +63,10 @@ export default function PriceAlertsPage() {
                 </p>
                 <div style={{ display: 'flex', gap: 16, flexWrap: 'wrap', alignItems: 'center' }}>
                   <span style={{ color: '#64748b', fontSize: '0.85rem', display: 'flex', alignItems: 'center', gap: 4 }}>
-                    <DollarSign size={14} /> Current: <span style={{ color: '#0f172a', fontWeight: 600 }}>${a.currentPrice.toFixed(2)}</span>
+                    <IndianRupee size={14} /> Current: <span style={{ color: '#0f172a', fontWeight: 600 }}>₹{a.currentPrice.toLocaleString('en-IN', { maximumFractionDigits: 2 })}</span>
                   </span>
                   <span style={{ color: '#64748b', fontSize: '0.85rem', display: 'flex', alignItems: 'center', gap: 4 }}>
-                    <Target size={14} /> Target: <span style={{ color: '#059669', fontWeight: 600 }}>${a.targetPrice.toFixed(2)}</span>
+                    <Target size={14} /> Target: <span style={{ color: '#059669', fontWeight: 600 }}>₹{a.targetPrice.toLocaleString('en-IN', { maximumFractionDigits: 2 })}</span>
                   </span>
                   <span style={{ color: '#94a3b8', fontSize: '0.8rem', display: 'flex', alignItems: 'center', gap: 4 }}>
                     <Tag size={12} /> {a.source}

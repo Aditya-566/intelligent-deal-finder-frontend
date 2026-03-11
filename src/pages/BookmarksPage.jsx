@@ -83,7 +83,7 @@ export default function BookmarksPage() {
                     {b.productName}
                   </p>
                   <div style={{ display: 'flex', alignItems: 'baseline', gap: 8, marginBottom: 8 }}>
-                    <span style={{ fontSize: '1.25rem', fontWeight: 700, color: '#0f172a' }}>${b.price.toFixed(2)}</span>
+                    <span style={{ fontSize: '1.25rem', fontWeight: 700, color: '#0f172a' }}>₹{b.price.toLocaleString('en-IN', { maximumFractionDigits: 2 })}</span>
                     {discount > 0 && (
                       <span style={{ fontSize: '0.75rem', color: '#059669', fontWeight: 600, background: '#ecfdf5', padding: '2px 6px', borderRadius: 4 }}>-{discount}%</span>
                     )}

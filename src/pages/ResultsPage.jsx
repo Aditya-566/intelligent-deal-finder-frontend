@@ -6,7 +6,7 @@ import { searchDeals } from '../services/search.service';
 import { saveSearch } from '../services/user.service';
 import { useAuth } from '../context/AuthContext';
 import toast from 'react-hot-toast';
-import { ArrowLeft, RefreshCw, Save, FolderOpen, Tag, Award, DollarSign, Search, Frown, Zap } from 'lucide-react';
+import { ArrowLeft, RefreshCw, Save, FolderOpen, Tag, Award, IndianRupee, Search, Frown, Zap } from 'lucide-react';
 
 export default function ResultsPage() {
   const [searchParams] = useSearchParams();
@@ -22,7 +22,7 @@ export default function ResultsPage() {
 
   const q = searchParams.get('q') || '';
   const minPrice = searchParams.get('minPrice') || 0;
-  const maxPrice = searchParams.get('maxPrice') || 10000;
+  const maxPrice = searchParams.get('maxPrice') || 100000;
   const category = searchParams.get('category') || '';
   const brand = searchParams.get('brand') || '';
   const sortBy = searchParams.get('sortBy') || 'price';
@@ -112,7 +112,7 @@ export default function ResultsPage() {
               {category && <span style={chipStyle}><FolderOpen size={14} /> {category}</span>}
               {brand && <span style={chipStyle}><Tag size={14} /> {brand}</span>}
               {sortBy === 'dealScore' && <span style={chipStyle}><Award size={14} /> Best Deal Score</span>}
-              <span style={chipStyle}><DollarSign size={14} /> {minPrice} – {maxPrice}</span>
+              <span style={chipStyle}><IndianRupee size={14} /> {minPrice} – {maxPrice}</span>
             </div>
           )}
         </div>

@@ -122,11 +122,11 @@ export default function DealCard({ product, rank }) {
           {/* Price */}
           <div style={{ display: 'flex', alignItems: 'baseline', gap: 8, marginBottom: 8 }}>
             <span style={{ fontSize: '1.5rem', fontWeight: 700, color: '#0f172a', letterSpacing: '-0.02em' }}>
-              ${product.price.toFixed(2)}
+              ₹{product.price.toLocaleString('en-IN', { maximumFractionDigits: 2 })}
             </span>
             {product.originalPrice && product.originalPrice > product.price && (
               <span style={{ fontSize: '0.9rem', color: '#94a3b8', textDecoration: 'line-through' }}>
-                ${product.originalPrice.toFixed(2)}
+                ₹{product.originalPrice.toLocaleString('en-IN', { maximumFractionDigits: 2 })}
               </span>
             )}
           </div>

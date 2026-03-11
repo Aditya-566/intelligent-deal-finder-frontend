@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { getSavedSearches, deleteSavedSearch } from '../services/user.service';
 import toast from 'react-hot-toast';
-import { Save, Trash2, Play, Search, FolderOpen, Tag, DollarSign, Calendar } from 'lucide-react';
+import { Save, Trash2, Play, Search, FolderOpen, Tag, IndianRupee, Calendar } from 'lucide-react';
 
 export default function SavedSearchesPage() {
   const [searches, setSearches] = useState([]);
@@ -74,7 +74,7 @@ export default function SavedSearchesPage() {
               <div style={{ flex: 1, minWidth: 0 }}>
                 <p style={{ fontWeight: 600, color: '#0f172a', marginBottom: 8, fontSize: '1.1rem' }}>{s.query}</p>
                 <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap' }}>
-                  <span style={chipStyle}><DollarSign size={12} /> ${s.minPrice}–${s.maxPrice}</span>
+                  <span style={chipStyle}><IndianRupee size={12} /> {s.minPrice}–{s.maxPrice}</span>
                   {s.filters?.category && <span style={chipStyle}><FolderOpen size={12} /> {s.filters.category}</span>}
                   {s.filters?.brand && <span style={chipStyle}><Tag size={12} /> {s.filters.brand}</span>}
                   <span style={{ color: '#94a3b8', fontSize: '0.8rem', display: 'flex', alignItems: 'center', gap: 4 }}>

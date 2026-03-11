@@ -26,7 +26,7 @@ export default function HomePage() {
   const navigate = useNavigate();
   const [query, setQuery] = useState('');
   const [minPrice, setMinPrice] = useState(0);
-  const [maxPrice, setMaxPrice] = useState(1000);
+  const [maxPrice, setMaxPrice] = useState(100000);
   const [category, setCategory] = useState('');
   const [brand, setBrand] = useState('');
   const [sortBy, setSortBy] = useState('dealScore');
@@ -119,7 +119,7 @@ export default function HomePage() {
                   </select>
                 </div>
                 <div>
-                  <label style={{ color: '#475569', fontSize: '0.75rem', fontWeight: 500, display: 'block', marginBottom: 6 }}>Max USD Budget</label>
+                  <label style={{ color: '#475569', fontSize: '0.75rem', fontWeight: 500, display: 'block', marginBottom: 6 }}>Max INR Budget</label>
                   <input type="number" className="input-dark" value={maxPrice} onChange={e => setMaxPrice(Number(e.target.value))} min={1} style={{ height: 40, background: '#f8fafc' }} />
                 </div>
               </div>
