@@ -1,0 +1,10 @@
+# https://www.robotstxt.org/robotstxt.html
+
+User-agent: *
+Allow: /
+
+# Disallow API routes (these are backend, not frontend paths — but just in case)
+Disallow: /api/
+
+# Sitemap location
+Sitemap: https://intelligent-deal-finder-frontend.vercel.app/sitemap.xml
