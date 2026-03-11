@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { Toaster } from 'react-hot-toast';
 import { AuthProvider } from './context/AuthContext';
 import Navbar from './components/Navbar';
+import { Search } from 'lucide-react';
 import ProtectedRoute from './components/ProtectedRoute';
 import Footer from './components/Footer';
 
@@ -58,12 +59,14 @@ function App() {
                   <ProtectedRoute><PriceAlertsPage /></ProtectedRoute>
                 } />
                 <Route path="*" element={
-                  <div style={{ textAlign: 'center', padding: '80px 24px' }}>
-                    <div style={{ fontSize: '4rem', marginBottom: '16px' }}>🔍</div>
-                    <h1 style={{ fontFamily: 'Outfit, sans-serif', fontSize: '2rem', color: '#f1f5f9', marginBottom: '8px' }}>
+                  <div style={{ textAlign: 'center', padding: '80px 24px', background: '#f8fafc', minHeight: '80vh' }}>
+                    <div style={{ fontSize: '4rem', marginBottom: '16px', color: '#cbd5e1' }}>
+                      <Search size={64} style={{ margin: '0 auto' }} strokeWidth={1.5} />
+                    </div>
+                    <h1 style={{ fontFamily: 'Outfit, sans-serif', fontSize: '2rem', color: '#0f172a', marginBottom: '8px', fontWeight: 600 }}>
                       404 — Page not found
                     </h1>
-                    <a href="/" style={{ color: '#6366f1', textDecoration: 'none' }}>← Go home</a>
+                    <a href="/" style={{ color: '#0f172a', textDecoration: 'none', fontWeight: 500 }}>← Go home</a>
                   </div>
                 } />
               </Routes>

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import FeedbackModal from './FeedbackModal';
+import { Search, MessageSquare } from 'lucide-react';
 
 export default function Footer() {
   const [showFeedback, setShowFeedback] = useState(false);
@@ -9,51 +10,60 @@ export default function Footer() {
   return (
     <>
       <footer style={{
-        background: '#0a0a14',
-        borderTop: '1px solid rgba(99,102,241,0.15)',
-        padding: '32px 24px',
+        background: '#f8fafc',
+        borderTop: '1px solid #e2e8f0',
+        padding: '40px 24px',
         marginTop: 'auto',
       }}>
-        <div style={{ maxWidth: 1200, margin: '0 auto' }}>
-          <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between', alignItems: 'center', gap: '16px' }}>
+        <div style={{ maxWidth: 880, margin: '0 auto' }}>
+          <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between', alignItems: 'center', gap: 24 }}>
             {/* Brand */}
-            <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-              <span style={{ fontSize: '1.4rem' }}>🔍</span>
-              <span style={{ fontFamily: 'Outfit, sans-serif', fontWeight: 700, color: '#f1f5f9', fontSize: '1rem' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+              <div style={{
+                width: 28, height: 28, borderRadius: 6,
+                background: '#0f172a', display: 'flex', alignItems: 'center', justifyContent: 'center',
+                color: '#ffffff',
+              }}>
+                <Search size={16} strokeWidth={3} />
+              </div>
+              <span style={{ fontFamily: 'Outfit, sans-serif', fontWeight: 600, color: '#0f172a', fontSize: '1.05rem', letterSpacing: '-0.01em' }}>
                 Intelligent Deal Finder
               </span>
             </div>
 
             {/* Links */}
-            <div style={{ display: 'flex', gap: '24px', flexWrap: 'wrap', alignItems: 'center' }}>
-              <Link to="/privacy-policy" style={{ color: '#64748b', textDecoration: 'none', fontSize: '0.85rem', transition: 'color 0.2s' }}
-                onMouseEnter={e => e.target.style.color = '#94a3b8'}
+            <div style={{ display: 'flex', gap: 24, flexWrap: 'wrap', alignItems: 'center' }}>
+              <Link to="/privacy-policy" style={{ color: '#64748b', textDecoration: 'none', fontSize: '0.85rem', transition: 'color 0.2s', fontWeight: 500 }}
+                onMouseEnter={e => e.target.style.color = '#0f172a'}
                 onMouseLeave={e => e.target.style.color = '#64748b'}>
                 Privacy Policy
               </Link>
-              <Link to="/terms" style={{ color: '#64748b', textDecoration: 'none', fontSize: '0.85rem', transition: 'color 0.2s' }}
-                onMouseEnter={e => e.target.style.color = '#94a3b8'}
+              <Link to="/terms" style={{ color: '#64748b', textDecoration: 'none', fontSize: '0.85rem', transition: 'color 0.2s', fontWeight: 500 }}
+                onMouseEnter={e => e.target.style.color = '#0f172a'}
                 onMouseLeave={e => e.target.style.color = '#64748b'}>
                 Terms of Service
               </Link>
               <button
                 onClick={() => setShowFeedback(true)}
                 style={{
-                  background: 'none', border: '1px solid rgba(99,102,241,0.3)', borderRadius: '6px',
-                  color: '#6366f1', fontSize: '0.85rem', padding: '4px 12px', cursor: 'pointer',
-                  transition: 'all 0.2s',
+                  background: '#ffffff', border: '1px solid #e2e8f0', borderRadius: 8,
+                  color: '#475569', fontSize: '0.85rem', padding: '6px 14px', cursor: 'pointer',
+                  transition: 'all 0.2s', display: 'flex', alignItems: 'center', gap: 6, fontWeight: 500
                 }}
-                onMouseEnter={e => { e.target.style.background = 'rgba(99,102,241,0.1)'; }}
-                onMouseLeave={e => { e.target.style.background = 'none'; }}
+                onMouseEnter={e => { e.target.style.background = '#f1f5f9'; e.target.style.color = '#0f172a'; }}
+                onMouseLeave={e => { e.target.style.background = '#ffffff'; e.target.style.color = '#475569'; }}
               >
-                💬 Feedback
+                <MessageSquare size={14} /> Feedback
               </button>
             </div>
           </div>
 
-          <div style={{ marginTop: '20px', paddingTop: '16px', borderTop: '1px solid rgba(255,255,255,0.05)', textAlign: 'center' }}>
-            <p style={{ color: '#334155', fontSize: '0.8rem' }}>
-              © {year} Intelligent Deal Finder. Prices and availability subject to change. Not affiliated with any retailer.
+          <div style={{ marginTop: 32, paddingTop: 20, borderTop: '1px solid #e2e8f0', display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between', gap: 16 }}>
+            <p style={{ color: '#94a3b8', fontSize: '0.8rem' }}>
+              © {year} Intelligent Deal Finder. All rights reserved.
+            </p>
+            <p style={{ color: '#94a3b8', fontSize: '0.8rem' }}>
+              Prices and availability subject to change. Not affiliated with any retailer.
             </p>
           </div>
         </div>

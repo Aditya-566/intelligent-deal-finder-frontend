@@ -2,20 +2,20 @@ import React, { useState } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { addBookmark } from '../services/user.service';
 import toast from 'react-hot-toast';
+import { ShoppingBag, BookmarkPlus, BookmarkCheck, ExternalLink, Star } from 'lucide-react';
 
 const SOURCE_COLORS = {
-  Amazon:   { bg: 'rgba(255,153,0,0.12)',  color: '#FF9900', border: 'rgba(255,153,0,0.3)',  emoji: '🛒' },
-  Flipkart: { bg: 'rgba(40,116,240,0.12)', color: '#2874F0', border: 'rgba(40,116,240,0.3)', emoji: '🔵' },
-  Myntra:   { bg: 'rgba(255,63,108,0.12)', color: '#FF3F6C', border: 'rgba(255,63,108,0.3)', emoji: '🩷' },
+  Amazon:   { bg: '#fff7ed',  color: '#ea580c', border: '#ffedd5' },
+  Flipkart: { bg: '#eff6ff', color: '#2563eb', border: '#dbeafe' },
+  Myntra:   { bg: '#fdf2f8', color: '#db2777', border: '#fce7f3' },
 };
-
 
 export default function DealCard({ product, rank }) {
   const { isAuthenticated } = useAuth();
   const [bookmarked, setBookmarked] = useState(false);
   const [bookmarking, setBookmarking] = useState(false);
 
-  const source = SOURCE_COLORS[product.source] || { bg: 'rgba(99,102,241,0.12)', color: '#6366f1', border: 'rgba(99,102,241,0.3)', emoji: '🛍️' };
+  const source = SOURCE_COLORS[product.source] || { bg: '#f1f5f9', color: '#475569', border: '#e2e8f0' };
   const discount = product.originalPrice && product.originalPrice > product.price
     ? Math.round(((product.originalPrice - product.price) / product.originalPrice) * 100)
     : 0;
@@ -49,23 +49,25 @@ export default function DealCard({ product, rank }) {
 
   return (
     <div className="glass glass-hover fade-in-up" style={{
-      padding: '20px', position: 'relative', overflow: 'hidden',
+      padding: '24px', position: 'relative', overflow: 'hidden',
       animationDelay: `${(rank - 1) * 0.1}s`, opacity: 0,
+      display: 'flex', flexDirection: 'column', gap: 16,
+      '@media (minWidth: 640px)': { flexDirection: 'row', alignItems: 'center' }
     }}>
       {/* Rank badge */}
-      <div className={`rank-badge rank-${rank}`} style={{ position: 'absolute', top: '16px', left: '16px', zIndex: 2 }}>
+      <div className={`rank-badge rank-${rank}`} style={{ position: 'absolute', top: 16, left: 16, zIndex: 2 }}>
         {rank}
       </div>
 
       {/* Discount badge */}
       {discount > 0 && (
         <div style={{
-          position: 'absolute', top: '16px', right: '52px',
-          background: 'linear-gradient(135deg, #10b981, #059669)',
-          color: 'white', padding: '3px 10px', borderRadius: '20px',
-          fontSize: '0.75rem', fontWeight: 700, zIndex: 2,
+          position: 'absolute', top: 16, right: 60,
+          background: '#ecfdf5', color: '#059669', border: '1px solid #a7f3d0',
+          padding: '4px 10px', borderRadius: 20,
+          fontSize: '0.75rem', fontWeight: 600, zIndex: 2,
         }}>
-          -{discount}% OFF
+          {discount}% OFF
         </div>
       )}
 
@@ -75,87 +77,90 @@ export default function DealCard({ product, rank }) {
         disabled={bookmarking}
         title={bookmarked ? 'Bookmarked' : 'Save to bookmarks'}
         style={{
-          position: 'absolute', top: '14px', right: '14px', zIndex: 2,
-          background: bookmarked ? 'rgba(99,102,241,0.2)' : 'rgba(255,255,255,0.05)',
-          border: `1px solid ${bookmarked ? 'rgba(99,102,241,0.5)' : 'rgba(255,255,255,0.1)'}`,
-          borderRadius: '8px', padding: '6px 8px', cursor: 'pointer',
-          fontSize: '16px', transition: 'all 0.2s',
+          position: 'absolute', top: 14, right: 14, zIndex: 2,
+          background: bookmarked ? '#eef2ff' : '#ffffff',
+          color: bookmarked ? '#4f46e5' : '#64748b',
+          border: `1px solid ${bookmarked ? '#c7d2fe' : '#e2e8f0'}`,
+          borderRadius: 8, padding: 6, cursor: 'pointer',
+          transition: 'all 0.2s', display: 'flex', alignItems: 'center', justifyContent: 'center'
         }}
       >
-        {bookmarked ? '🔖' : '☆'}
+        {bookmarked ? <BookmarkCheck size={18} /> : <BookmarkPlus size={18} />}
       </button>
 
-      <div style={{ display: 'flex', gap: '16px', marginTop: '8px' }}>
+      <div style={{ display: 'flex', gap: 20, width: '100%', alignItems: 'center' }}>
         {/* Product Image */}
         <div style={{
-          width: '90px', height: '90px', flexShrink: 0,
-          borderRadius: '12px', overflow: 'hidden',
-          background: 'rgba(255,255,255,0.05)',
-          border: '1px solid rgba(255,255,255,0.08)',
-          display: 'flex', alignItems: 'center', justifyContent: 'center',
+          width: 100, height: 100, flexShrink: 0,
+          borderRadius: 12, overflow: 'hidden',
+          background: '#f8fafc', border: '1px solid #e2e8f0',
+          display: 'flex', alignItems: 'center', justifyContent: 'center', p: 8
         }}>
           {product.imageUrl ? (
             <img
               src={product.imageUrl}
               alt={product.productName}
-              style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+              style={{ width: '100%', height: '100%', objectFit: 'contain' }}
               onError={(e) => { e.target.style.display = 'none'; e.target.nextSibling.style.display = 'flex'; }}
             />
           ) : null}
-          <div style={{ display: product.imageUrl ? 'none' : 'flex', fontSize: '32px', alignItems: 'center', justifyContent: 'center', width: '100%', height: '100%' }}>
-            {source.emoji}
+          <div style={{ display: product.imageUrl ? 'none' : 'flex', color: '#cbd5e1', alignItems: 'center', justifyContent: 'center', width: '100%', height: '100%' }}>
+            <ShoppingBag size={32} />
           </div>
         </div>
 
         {/* Product Info */}
         <div style={{ flex: 1, minWidth: 0 }}>
-          <p style={{
-            fontSize: '0.88rem', color: '#94a3b8', marginBottom: '6px',
-            overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap',
+          <h3 style={{
+            fontSize: '0.95rem', color: '#0f172a', marginBottom: 8, fontWeight: 500,
+            overflow: 'hidden', textOverflow: 'ellipsis', display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical',
             lineHeight: 1.4,
           }}>
             {product.productName}
-          </p>
+          </h3>
 
           {/* Price */}
-          <div style={{ display: 'flex', alignItems: 'baseline', gap: '8px', marginBottom: '8px' }}>
-            <span style={{ fontSize: '1.5rem', fontWeight: 800, color: '#f1f5f9', fontFamily: 'Outfit, sans-serif' }}>
+          <div style={{ display: 'flex', alignItems: 'baseline', gap: 8, marginBottom: 8 }}>
+            <span style={{ fontSize: '1.5rem', fontWeight: 700, color: '#0f172a', letterSpacing: '-0.02em' }}>
               ${product.price.toFixed(2)}
             </span>
             {product.originalPrice && product.originalPrice > product.price && (
-              <span style={{ fontSize: '0.85rem', color: '#64748b', textDecoration: 'line-through' }}>
+              <span style={{ fontSize: '0.9rem', color: '#94a3b8', textDecoration: 'line-through' }}>
                 ${product.originalPrice.toFixed(2)}
               </span>
             )}
           </div>
 
-          {/* Rating */}
-          {product.rating && (
-            <div style={{ display: 'flex', alignItems: 'center', gap: '6px', marginBottom: '8px' }}>
-              <span style={{ color: '#fbbf24', fontSize: '0.85rem' }}>{'★'.repeat(Math.round(product.rating))}{'☆'.repeat(5 - Math.round(product.rating))}</span>
-              <span style={{ color: '#64748b', fontSize: '0.78rem' }}>
-                {product.rating} {product.reviews ? `(${product.reviews.toLocaleString()})` : ''}
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: 12 }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+              {/* Source Tag */}
+              <span style={{
+                display: 'inline-flex', alignItems: 'center', gap: 6,
+                padding: '4px 10px', borderRadius: 20, fontSize: '0.75rem', fontWeight: 600,
+                background: source.bg, color: source.color, border: `1px solid ${source.border}`,
+              }}>
+                <ShoppingBag size={12} /> {product.source}
               </span>
-            </div>
-          )}
 
-          {/* Source + CTA */}
-          <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap' }}>
-            <span style={{
-              padding: '3px 10px', borderRadius: '20px', fontSize: '0.75rem', fontWeight: 600,
-              background: source.bg, color: source.color, border: `1px solid ${source.border}`,
-            }}>
-              {source.emoji} {product.source}
-            </span>
+              {/* Rating */}
+              {product.rating && (
+                <div style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
+                  <Star size={14} fill="#f59e0b" color="#f59e0b" />
+                  <span style={{ color: '#475569', fontSize: '0.8rem', fontWeight: 500 }}>
+                    {product.rating} <span style={{ color: '#94a3b8', fontWeight: 400 }}>{product.reviews ? `(${product.reviews.toLocaleString()})` : ''}</span>
+                  </span>
+                </div>
+              )}
+            </div>
 
             <a
               href={product.productUrl}
               target="_blank"
               rel="noopener noreferrer"
               className="btn-primary"
-              style={{ padding: '6px 14px', fontSize: '0.8rem', textDecoration: 'none', marginLeft: 'auto' }}
+              style={{ padding: '8px 16px', fontSize: '0.85rem', textDecoration: 'none', borderRadius: 8 }}
             >
-              View Deal →
+              View Deal <ExternalLink size={14} />
             </a>
           </div>
         </div>

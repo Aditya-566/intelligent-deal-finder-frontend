@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import toast from 'react-hot-toast';
+import { MessageSquare, Star, X, CheckCircle2, Send } from 'lucide-react';
 
 const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
 
@@ -29,42 +30,46 @@ export default function FeedbackModal({ onClose }) {
     <div
       onClick={onClose}
       style={{
-        position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.7)',
+        position: 'fixed', inset: 0, background: 'rgba(15, 23, 42, 0.4)', backdropFilter: 'blur(4px)',
         display: 'flex', alignItems: 'center', justifyContent: 'center',
-        zIndex: 1000, padding: '24px',
+        zIndex: 1000, padding: 24,
       }}
     >
       <div
         onClick={e => e.stopPropagation()}
+        className="fade-in-up"
         style={{
-          background: '#1a1a2e', border: '1px solid rgba(99,102,241,0.3)',
-          borderRadius: '16px', padding: '32px', width: '100%', maxWidth: '480px',
-          boxShadow: '0 25px 60px rgba(0,0,0,0.5)',
+          background: '#ffffff', border: '1px solid #e2e8f0',
+          borderRadius: 16, padding: 32, width: '100%', maxWidth: 480,
+          boxShadow: '0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1)',
         }}
       >
         {submitted ? (
           <div style={{ textAlign: 'center', padding: '24px 0' }}>
-            <div style={{ fontSize: '3rem', marginBottom: '16px' }}>🎉</div>
-            <h3 style={{ color: '#f1f5f9', fontFamily: 'Outfit, sans-serif', marginBottom: '8px' }}>Thank you!</h3>
+            <CheckCircle2 size={48} color="#059669" style={{ margin: '0 auto 16px' }} />
+            <h3 style={{ color: '#0f172a', fontFamily: 'Outfit, sans-serif', marginBottom: 8, fontSize: '1.25rem', fontWeight: 600 }}>Thank you!</h3>
             <p style={{ color: '#64748b' }}>Your feedback means a lot to us.</p>
-            <button onClick={onClose} className="btn-primary" style={{ marginTop: '20px' }}>Close</button>
+            <button onClick={onClose} className="btn-primary" style={{ marginTop: 24, width: '100%' }}>Close</button>
           </div>
         ) : (
           <>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '24px' }}>
-              <h3 style={{ color: '#f1f5f9', fontFamily: 'Outfit, sans-serif', fontSize: '1.3rem', margin: 0 }}>
-                💬 Share your feedback
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 24 }}>
+              <h3 style={{ color: '#0f172a', fontFamily: 'Outfit, sans-serif', fontSize: '1.25rem', margin: 0, display: 'flex', alignItems: 'center', gap: 8, fontWeight: 600 }}>
+                <MessageSquare size={20} color="#0f172a" /> Share feedback
               </h3>
-              <button onClick={onClose} style={{ background: 'none', border: 'none', color: '#64748b', cursor: 'pointer', fontSize: '1.2rem' }}>✕</button>
+              <button onClick={onClose} style={{ background: 'none', border: 'none', color: '#94a3b8', cursor: 'pointer', display: 'flex', padding: 4, borderRadius: '50%' }}
+                onMouseEnter={e => e.currentTarget.style.background = '#f1f5f9'}
+                onMouseLeave={e => e.currentTarget.style.background = 'transparent'}
+              ><X size={20} /></button>
             </div>
 
-            <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+            <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
               {/* Star rating */}
               <div>
-                <label style={{ color: '#94a3b8', fontSize: '0.85rem', display: 'block', marginBottom: '10px' }}>
+                <label style={{ color: '#475569', fontSize: '0.85rem', fontWeight: 500, display: 'block', marginBottom: 12 }}>
                   How would you rate your experience?
                 </label>
-                <div style={{ display: 'flex', gap: '8px' }}>
+                <div style={{ display: 'flex', gap: 8 }}>
                   {STARS.map(star => (
                     <button
                       key={star}
@@ -72,36 +77,40 @@ export default function FeedbackModal({ onClose }) {
                       onClick={() => setForm(f => ({ ...f, rating: star }))}
                       style={{
                         background: 'none', border: 'none', cursor: 'pointer',
-                        fontSize: '1.8rem', opacity: star <= form.rating ? 1 : 0.3,
-                        transform: star <= form.rating ? 'scale(1.1)' : 'scale(1)',
-                        transition: 'all 0.15s',
+                        color: star <= form.rating ? '#f59e0b' : '#cbd5e1',
+                        transition: 'all 0.15s', padding: 0
                       }}
-                    >⭐</button>
+                    >
+                      <Star size={32} fill={star <= form.rating ? '#f59e0b' : 'none'} strokeWidth={1.5} />
+                    </button>
                   ))}
                 </div>
               </div>
 
               {/* Message */}
               <div>
-                <label style={{ color: '#94a3b8', fontSize: '0.85rem', display: 'block', marginBottom: '8px' }}>
+                <label style={{ color: '#475569', fontSize: '0.85rem', fontWeight: 500, display: 'block', marginBottom: 8 }}>
                   Your message <span style={{ color: '#ef4444' }}>*</span>
                 </label>
                 <textarea
                   value={form.message}
                   onChange={e => setForm(f => ({ ...f, message: e.target.value }))}
-                  placeholder="Tell us what you think, what could be better, or report a bug…"
+                  placeholder="Tell us what you think, what could be better…"
                   rows={4}
                   style={{
-                    width: '100%', background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(99,102,241,0.2)',
-                    borderRadius: '8px', padding: '12px', color: '#f1f5f9', fontSize: '0.9rem',
+                    width: '100%', background: '#f8fafc', border: '1px solid #e2e8f0',
+                    borderRadius: 8, padding: 12, color: '#0f172a', fontSize: '0.9rem',
                     resize: 'vertical', fontFamily: 'inherit', boxSizing: 'border-box',
+                    outline: 'none', transition: 'border-color 0.2s'
                   }}
+                  onFocus={e => e.target.style.borderColor = '#0f172a'}
+                  onBlur={e => e.target.style.borderColor = '#e2e8f0'}
                 />
               </div>
 
               {/* Optional email */}
               <div>
-                <label style={{ color: '#94a3b8', fontSize: '0.85rem', display: 'block', marginBottom: '8px' }}>
+                <label style={{ color: '#475569', fontSize: '0.85rem', fontWeight: 500, display: 'block', marginBottom: 8 }}>
                   Email (optional — if you'd like a response)
                 </label>
                 <input
@@ -110,10 +119,13 @@ export default function FeedbackModal({ onClose }) {
                   onChange={e => setForm(f => ({ ...f, email: e.target.value }))}
                   placeholder="you@example.com"
                   style={{
-                    width: '100%', background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(99,102,241,0.2)',
-                    borderRadius: '8px', padding: '12px', color: '#f1f5f9', fontSize: '0.9rem',
-                    fontFamily: 'inherit', boxSizing: 'border-box',
+                    width: '100%', background: '#f8fafc', border: '1px solid #e2e8f0',
+                    borderRadius: 8, padding: 12, color: '#0f172a', fontSize: '0.9rem',
+                    fontFamily: 'inherit', boxSizing: 'border-box', outline: 'none',
+                    transition: 'border-color 0.2s'
                   }}
+                  onFocus={e => e.target.style.borderColor = '#0f172a'}
+                  onBlur={e => e.target.style.borderColor = '#e2e8f0'}
                 />
               </div>
 
@@ -121,9 +133,9 @@ export default function FeedbackModal({ onClose }) {
                 type="submit"
                 className="btn-primary"
                 disabled={loading}
-                style={{ alignSelf: 'flex-end', minWidth: '140px', justifyContent: 'center' }}
+                style={{ width: '100%', height: 48, marginTop: 8 }}
               >
-                {loading ? '⏳ Sending...' : '🚀 Submit'}
+                {loading ? 'Sending...' : 'Submit Feedback'} <Send size={16} />
               </button>
             </form>
           </>

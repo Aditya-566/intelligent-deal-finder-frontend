@@ -3,9 +3,9 @@ import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import { login as loginApi } from '../services/auth.service';
 import { useAuth } from '../context/AuthContext';
 import toast from 'react-hot-toast';
+import { Lock, ArrowRight } from 'lucide-react';
 
 const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
-
 
 export default function LoginPage() {
   const { login } = useAuth();
@@ -20,7 +20,6 @@ export default function LoginPage() {
     }
   }, [searchParams]);
 
-
   const handleChange = e => setForm(f => ({ ...f, [e.target.name]: e.target.value }));
 
   const handleSubmit = async (e) => {
@@ -29,7 +28,7 @@ export default function LoginPage() {
     try {
       const { data } = await loginApi(form);
       login(data.user, data.token);
-      toast.success(`Welcome back, ${data.user.name}! 👋`);
+      toast.success(`Welcome back, ${data.user.name}!`);
       navigate('/');
     } catch (err) {
       toast.error(err.response?.data?.message || 'Login failed');
@@ -39,52 +38,60 @@ export default function LoginPage() {
   };
 
   return (
-    <div style={{ minHeight: '80vh', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '24px' }}>
-      <div style={{ width: '100%', maxWidth: '440px' }}>
-        <div style={{ textAlign: 'center', marginBottom: '32px' }}>
-          <div style={{ fontSize: '3rem', marginBottom: '12px' }}>🔐</div>
-          <h1 style={{ fontFamily: 'Outfit, sans-serif', fontSize: '2rem', fontWeight: 700, color: '#f1f5f9', marginBottom: '8px' }}>
+    <div style={{ minHeight: '80vh', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '40px 24px', background: '#f8fafc' }}>
+      <div style={{ width: '100%', maxWidth: 440 }}>
+        
+        <div style={{ textAlign: 'center', marginBottom: 32 }}>
+          <div style={{ 
+            width: 56, height: 56, background: '#ffffff', borderRadius: 16, 
+            display: 'flex', alignItems: 'center', justifyContent: 'center', 
+            margin: '0 auto 20px', border: '1px solid #e2e8f0',
+            boxShadow: '0 4px 6px -1px rgba(0,0,0,0.05)'
+          }}>
+            <Lock size={28} color="#0f172a" />
+          </div>
+          <h1 style={{ fontFamily: 'Outfit, sans-serif', fontSize: '2rem', fontWeight: 600, color: '#0f172a', marginBottom: 8, letterSpacing: '-0.02em' }}>
             Welcome back
           </h1>
           <p style={{ color: '#64748b' }}>Sign in to access your saved deals</p>
         </div>
 
-        <div className="glass" style={{ padding: '32px' }}>
-          <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+        <div className="glass" style={{ padding: 40, background: '#ffffff', borderRadius: 16 }}>
+          <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
             <div>
-              <label style={{ color: '#94a3b8', fontSize: '0.85rem', display: 'block', marginBottom: '8px' }}>Email</label>
+              <label style={{ color: '#475569', fontSize: '0.85rem', fontWeight: 500, display: 'block', marginBottom: 8 }}>Email</label>
               <input name="email" type="email" required value={form.email} onChange={handleChange}
-                className="input-dark" placeholder="you@example.com" autoComplete="email" />
+                className="input-dark" placeholder="you@example.com" autoComplete="email" style={{ height: 48 }} />
             </div>
             <div>
-              <label style={{ color: '#94a3b8', fontSize: '0.85rem', display: 'block', marginBottom: '8px' }}>Password</label>
+              <label style={{ color: '#475569', fontSize: '0.85rem', fontWeight: 500, display: 'block', marginBottom: 8 }}>Password</label>
               <input name="password" type="password" required value={form.password} onChange={handleChange}
-                className="input-dark" placeholder="••••••••" autoComplete="current-password" />
+                className="input-dark" placeholder="••••••••" autoComplete="current-password" style={{ height: 48 }} />
             </div>
-            <button type="submit" className="btn-primary" disabled={loading} style={{ width: '100%', justifyContent: 'center', height: '48px', marginTop: '8px' }}>
-              {loading ? '⏳ Signing in...' : '🔓 Sign In'}
+            <button type="submit" className="btn-primary" disabled={loading} style={{ width: '100%', height: 48, marginTop: 8 }}>
+              {loading ? 'Signing in...' : 'Sign In'} <ArrowRight size={16} />
             </button>
           </form>
 
           {/* ── Divider ── */}
-          <div style={{ display: 'flex', alignItems: 'center', gap: '12px', margin: '20px 0 0' }}>
-            <div style={{ flex: 1, height: 1, background: 'rgba(99,102,241,0.2)' }} />
-            <span style={{ color: '#64748b', fontSize: '0.8rem' }}>or continue with</span>
-            <div style={{ flex: 1, height: 1, background: 'rgba(99,102,241,0.2)' }} />
+          <div style={{ display: 'flex', alignItems: 'center', gap: 16, margin: '24px 0' }}>
+            <div style={{ flex: 1, height: 1, background: '#e2e8f0' }} />
+            <span style={{ color: '#94a3b8', fontSize: '0.8rem', fontWeight: 500 }}>OR</span>
+            <div style={{ flex: 1, height: 1, background: '#e2e8f0' }} />
           </div>
 
           {/* ── Google OAuth Button ── */}
           <a
             href={`${API_URL}/auth/google`}
             style={{
-              display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '10px',
-              width: '100%', padding: '12px', marginTop: '12px', borderRadius: '10px',
-              background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.12)',
-              color: '#f1f5f9', textDecoration: 'none', fontSize: '0.95rem', fontWeight: 500,
+              display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 12,
+              width: '100%', height: 48, borderRadius: 8,
+              background: '#ffffff', border: '1px solid #e2e8f0',
+              color: '#0f172a', textDecoration: 'none', fontSize: '0.95rem', fontWeight: 500,
               cursor: 'pointer', transition: 'all 0.2s',
             }}
-            onMouseEnter={e => e.currentTarget.style.background = 'rgba(255,255,255,0.1)'}
-            onMouseLeave={e => e.currentTarget.style.background = 'rgba(255,255,255,0.05)'}
+            onMouseEnter={e => { e.currentTarget.style.background = '#f8fafc'; e.currentTarget.style.borderColor = '#cbd5e1'; }}
+            onMouseLeave={e => { e.currentTarget.style.background = '#ffffff'; e.currentTarget.style.borderColor = '#e2e8f0'; }}
           >
             <svg width="20" height="20" viewBox="0 0 48 48">
               <path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/>
@@ -95,9 +102,9 @@ export default function LoginPage() {
             Sign in with Google
           </a>
 
-          <p style={{ textAlign: 'center', color: '#64748b', marginTop: '20px', fontSize: '0.9rem' }}>
+          <p style={{ textAlign: 'center', color: '#64748b', marginTop: 24, fontSize: '0.9rem' }}>
             Don't have an account?{' '}
-            <Link to="/register" style={{ color: '#6366f1', fontWeight: 600, textDecoration: 'none' }}>Sign up →</Link>
+            <Link to="/register" style={{ color: '#0f172a', fontWeight: 600, textDecoration: 'none' }}>Sign up</Link>
           </p>
         </div>
       </div>
