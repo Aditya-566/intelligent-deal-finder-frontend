@@ -57,7 +57,7 @@ export default function PrivacyPolicyPage() {
           <li><strong style={{ color: '#f1f5f9' }}>Sentry</strong> — error tracking (anonymised)</li>
         </ul>
         <p style={{ marginTop: 8 }}>
-          We scrape publicly available product data from e-commerce sites (Amazon, eBay, Walmart). 
+          We scrape publicly available product data from e-commerce sites (Amazon, Flipkart, Myntra).
           We do not store or sell individual retailer pricing data.
         </p>
       </Section>
@@ -71,7 +71,7 @@ export default function PrivacyPolicyPage() {
       </Section>
 
       <Section title="6. Your Rights">
-        <p>Depending on your location, you may have rights to access, correct, or delete your personal data; port your data; or withdraw consent. Contact us at <strong style={{ color: '#6366f1' }}>[YOUR_EMAIL]</strong> to exercise these rights.</p>
+        <p>Depending on your location, you may have rights to access, correct, or delete your personal data; port your data; or withdraw consent. Contact us at           <strong style={{ color: '#6366f1' }}>aditya566sharma@gmail.com</strong> to exercise these rights.</p>
       </Section>
 
       <Section title="7. Security">
@@ -81,12 +81,11 @@ export default function PrivacyPolicyPage() {
       <Section title="8. Contact">
         <p>If you have questions about this policy, please contact us at:</p>
         <p style={{ marginTop: 8 }}>
-          <strong style={{ color: '#f1f5f9' }}>[YOUR_BUSINESS_NAME]</strong><br />
-          Email: <strong style={{ color: '#6366f1' }}>[YOUR_EMAIL]</strong><br />
-          {/* Add your address if required by GDPR */}
+          <strong style={{ color: '#f1f5f9' }}>Intelligent Deal Finder</strong><br />
+          Email: <strong style={{ color: '#6366f1' }}>aditya566sharma@gmail.com</strong>
         </p>
         <p style={{ marginTop: 12, fontSize: '0.85rem', color: '#64748b' }}>
-          ⚠️ <em>Customise the placeholders in brackets above with your actual business details before going live.</em>
+          📌 <em>This policy applies to all users of the Intelligent Deal Finder service.</em>
         </p>
       </Section>
     </div>

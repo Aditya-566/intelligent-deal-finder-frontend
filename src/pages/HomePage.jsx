@@ -1,10 +1,24 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-const CATEGORIES = ['All Categories', 'Electronics', 'Laptops', 'Phones', 'Headphones', 'Watches', 'Clothing', 'Home & Garden', 'Sports', 'Toys'];
+const CATEGORIES = ['All Categories', 'Electronics', 'Laptops', 'Phones', 'Headphones', 'Watches', 'Clothing', 'Books', 'Sports', 'Home'];
 const SORT_OPTIONS = [
   { value: 'price', label: '💰 Lowest Price' },
   { value: 'dealScore', label: '🏆 Best Deal Score' },
+];
+
+const POPULAR = ['iPhone 15 Pro', 'Sony WH-1000XM5', 'Samsung Galaxy S24', 'boAt Airdopes', 'Nike Air Force 1', 'MacBook Air M2'];
+
+const SOURCES = [
+  { name: 'Amazon', logo: '🟠', color: '#FF9900', desc: 'Huge selection' },
+  { name: 'Flipkart', logo: '🔵', color: '#2874F0', desc: 'Best Indian deals' },
+  { name: 'Myntra', logo: '🩷', color: '#FF3F6C', desc: 'Fashion & lifestyle' },
+];
+
+const HOW_IT_WORKS = [
+  { icon: '🔍', title: 'You Search', desc: 'Enter any product name — phone, laptop, sneakers, anything.' },
+  { icon: '⚡', title: 'We Scrape', desc: 'Our AI scrapes Amazon, Flipkart & Myntra in real-time.' },
+  { icon: '🏆', title: 'You Save', desc: 'Get the top 5 deals ranked by price and deal score.' },
 ];
 
 export default function HomePage() {
@@ -14,7 +28,8 @@ export default function HomePage() {
   const [maxPrice, setMaxPrice] = useState(1000);
   const [category, setCategory] = useState('');
   const [brand, setBrand] = useState('');
-  const [sortBy, setSortBy] = useState('price');
+  const [sortBy, setSortBy] = useState('dealScore');
+  const [showFilters, setShowFilters] = useState(false);
 
   const handleSearch = (e) => {
     e.preventDefault();
@@ -23,163 +38,179 @@ export default function HomePage() {
     navigate(`/results?${params.toString()}`);
   };
 
-  const popularSearches = ['iPhone 15', 'Sony WH-1000XM5', 'Gaming Laptop', 'AirPods Pro', 'Samsung TV 4K', 'Nike Air Max'];
-
   return (
     <div style={{ minHeight: '100vh', position: 'relative', overflow: 'hidden' }}>
-      {/* Glow orbs */}
-      <div className="glow-orb" style={{ width: '600px', height: '600px', background: 'rgba(99,102,241,0.12)', top: '-200px', left: '-200px' }} />
-      <div className="glow-orb" style={{ width: '400px', height: '400px', background: 'rgba(139,92,246,0.08)', bottom: '-100px', right: '-100px' }} />
+      {/* Background orbs */}
+      <div className="glow-orb" style={{ width: 700, height: 700, background: 'rgba(99,102,241,0.1)', top: -250, left: -250 }} />
+      <div className="glow-orb" style={{ width: 500, height: 500, background: 'rgba(139,92,246,0.07)', bottom: -150, right: -150 }} />
+      <div className="glow-orb" style={{ width: 300, height: 300, background: 'rgba(255,63,108,0.05)', top: '40%', right: '10%' }} />
 
-      <div style={{ position: 'relative', zIndex: 1, maxWidth: '800px', margin: '0 auto', padding: '80px 24px 60px' }}>
-        {/* Hero */}
-        <div style={{ textAlign: 'center', marginBottom: '56px' }}>
+      {/* ── Hero ── */}
+      <section style={{ position: 'relative', zIndex: 1, maxWidth: 860, margin: '0 auto', padding: '80px 24px 0' }}>
+        <div style={{ textAlign: 'center', marginBottom: 48 }}>
+          {/* Pill badge */}
           <div className="fade-in-up" style={{
-            display: 'inline-flex', alignItems: 'center', gap: '8px',
-            background: 'rgba(99,102,241,0.12)', border: '1px solid rgba(99,102,241,0.3)',
-            borderRadius: '20px', padding: '6px 16px', fontSize: '0.85rem', color: '#a78bfa',
-            marginBottom: '24px', fontWeight: 500,
+            display: 'inline-flex', alignItems: 'center', gap: 8,
+            background: 'rgba(99,102,241,0.1)', border: '1px solid rgba(99,102,241,0.25)',
+            borderRadius: 20, padding: '6px 16px', fontSize: '0.82rem', color: '#a78bfa',
+            marginBottom: 24, fontWeight: 500, letterSpacing: '0.02em',
           }}>
-            ✨ AI-Powered Deal Intelligence
+            <span style={{ width: 6, height: 6, borderRadius: '50%', background: '#6366f1', display: 'inline-block', animation: 'pulse-glow 2s infinite' }} />
+            Live prices from 3 stores — updated every search
           </div>
 
           <h1 className="fade-in-up stagger-1" style={{
-            fontFamily: 'Outfit, sans-serif', fontSize: 'clamp(2.4rem, 6vw, 3.8rem)',
-            fontWeight: 800, lineHeight: 1.15, marginBottom: '20px', color: '#f1f5f9',
+            fontFamily: 'Outfit, sans-serif', fontSize: 'clamp(2.5rem, 7vw, 4rem)',
+            fontWeight: 800, lineHeight: 1.1, marginBottom: 20, color: '#f1f5f9',
           }}>
-            Find the Best Deals<br />
-            <span className="gradient-text">Across the Web</span>
+            Stop Overpaying.<br />
+            <span className="gradient-text">Find Your Best Deal.</span>
           </h1>
 
           <p className="fade-in-up stagger-2" style={{
-            color: '#64748b', fontSize: '1.1rem', lineHeight: 1.7, maxWidth: '520px', margin: '0 auto',
+            color: '#64748b', fontSize: '1.1rem', lineHeight: 1.8, maxWidth: 500, margin: '0 auto 8px',
           }}>
-            We scrape Amazon, eBay & Walmart in real‑time to return your top 5 deals — filtered by your budget.
+            We compare <strong style={{ color: '#FF9900' }}>Amazon</strong>,{' '}
+            <strong style={{ color: '#2874F0' }}>Flipkart</strong> &{' '}
+            <strong style={{ color: '#FF3F6C' }}>Myntra</strong> in real-time so you  
+            don't have to.
           </p>
         </div>
 
-        {/* Search Card */}
-        <div className="glass fade-in-up stagger-3" style={{ padding: '32px', marginBottom: '32px' }}>
+        {/* ── Search Card ── */}
+        <div className="glass fade-in-up stagger-3" style={{ padding: 28, marginBottom: 28, borderRadius: 20 }}>
           <form onSubmit={handleSearch}>
-            {/* Main search */}
-            <div style={{ position: 'relative', marginBottom: '24px' }}>
-              <span style={{ position: 'absolute', left: '16px', top: '50%', transform: 'translateY(-50%)', fontSize: '20px', pointerEvents: 'none' }}>
-                🔍
-              </span>
-              <input
-                id="search-input"
-                type="text"
-                value={query}
-                onChange={e => setQuery(e.target.value)}
-                placeholder="Search for any product…"
-                className="input-dark"
-                style={{ paddingLeft: '48px', fontSize: '1.05rem', height: '54px' }}
-                required
-              />
+            {/* Main search row */}
+            <div style={{ display: 'flex', gap: 12, marginBottom: 16 }}>
+              <div style={{ flex: 1, position: 'relative' }}>
+                <span style={{ position: 'absolute', left: 16, top: '50%', transform: 'translateY(-50%)', fontSize: 20 }}>🔍</span>
+                <input
+                  id="search-input"
+                  type="text"
+                  value={query}
+                  onChange={e => setQuery(e.target.value)}
+                  placeholder="Search any product — iPhone, shoes, laptop…"
+                  className="input-dark"
+                  style={{ paddingLeft: 48, fontSize: '1rem', height: 54 }}
+                  required
+                />
+              </div>
+              <button type="submit" className="btn-primary" style={{ height: 54, padding: '0 28px', fontSize: '0.95rem', borderRadius: 12, whiteSpace: 'nowrap' }}>
+                Find Deals →
+              </button>
             </div>
 
-            {/* Budget slider */}
-            <div style={{ marginBottom: '24px' }}>
-              <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '12px' }}>
-                <label style={{ color: '#94a3b8', fontSize: '0.88rem', fontWeight: 500 }}>💵 Budget Range</label>
-                <span style={{ color: '#a78bfa', fontWeight: 600, fontSize: '0.9rem' }}>
-                  ${minPrice} — ${maxPrice === 10000 ? '10,000+' : maxPrice}
-                </span>
-              </div>
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
-                <div>
-                  <label style={{ color: '#64748b', fontSize: '0.78rem', display: 'block', marginBottom: '6px' }}>Min Price</label>
-                  <input
-                    type="range" min={0} max={5000} step={10}
-                    value={minPrice}
-                    onChange={e => setMinPrice(Math.min(Number(e.target.value), maxPrice - 10))}
-                  />
-                  <input
-                    type="number" min={0} max={maxPrice - 1} value={minPrice}
-                    onChange={e => setMinPrice(Math.max(0, Math.min(Number(e.target.value), maxPrice - 1)))}
-                    className="input-dark" style={{ marginTop: '8px', fontSize: '0.9rem', height: '40px' }}
-                  />
-                </div>
-                <div>
-                  <label style={{ color: '#64748b', fontSize: '0.78rem', display: 'block', marginBottom: '6px' }}>Max Price</label>
-                  <input
-                    type="range" min={10} max={10000} step={10}
-                    value={maxPrice}
-                    onChange={e => setMaxPrice(Math.max(Number(e.target.value), minPrice + 10))}
-                  />
-                  <input
-                    type="number" min={minPrice + 1} max={10000} value={maxPrice}
-                    onChange={e => setMaxPrice(Math.max(minPrice + 1, Math.min(10000, Number(e.target.value))))}
-                    className="input-dark" style={{ marginTop: '8px', fontSize: '0.9rem', height: '40px' }}
-                  />
-                </div>
-              </div>
-            </div>
-
-            {/* Filters */}
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '12px', marginBottom: '24px' }}>
-              <div>
-                <label style={{ color: '#64748b', fontSize: '0.78rem', display: 'block', marginBottom: '6px' }}>Category</label>
-                <select className="input-dark" value={category} onChange={e => setCategory(e.target.value)} style={{ height: '42px' }}>
-                  {CATEGORIES.map(c => <option key={c} value={c === 'All Categories' ? '' : c}>{c}</option>)}
-                </select>
-              </div>
-              <div>
-                <label style={{ color: '#64748b', fontSize: '0.78rem', display: 'block', marginBottom: '6px' }}>Brand</label>
-                <input type="text" className="input-dark" placeholder="e.g. Sony" value={brand} onChange={e => setBrand(e.target.value)} style={{ height: '42px' }} />
-              </div>
-              <div>
-                <label style={{ color: '#64748b', fontSize: '0.78rem', display: 'block', marginBottom: '6px' }}>Sort By</label>
-                <select className="input-dark" value={sortBy} onChange={e => setSortBy(e.target.value)} style={{ height: '42px' }}>
-                  {SORT_OPTIONS.map(o => <option key={o.value} value={o.value}>{o.label}</option>)}
-                </select>
-              </div>
-            </div>
-
-            <button type="submit" className="btn-primary" style={{ width: '100%', justifyContent: 'center', height: '52px', fontSize: '1rem' }}>
-              🔍 Find Best Deals
+            {/* Filter toggle */}
+            <button
+              type="button"
+              onClick={() => setShowFilters(v => !v)}
+              style={{
+                background: 'none', border: '1px solid rgba(99,102,241,0.2)', borderRadius: 8,
+                color: '#6366f1', padding: '6px 14px', fontSize: '0.82rem', cursor: 'pointer',
+                display: 'flex', alignItems: 'center', gap: 6, marginBottom: showFilters ? 16 : 0, transition: 'all 0.2s',
+              }}
+            >
+              ⚙️ {showFilters ? 'Hide Filters' : 'More Filters'}
             </button>
+
+            {/* Collapsible filters */}
+            {showFilters && (
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(160px, 1fr))', gap: 12, marginTop: 4 }}>
+                <div>
+                  <label style={{ color: '#64748b', fontSize: '0.78rem', display: 'block', marginBottom: 6 }}>Category</label>
+                  <select className="input-dark" value={category} onChange={e => setCategory(e.target.value)} style={{ height: 42 }}>
+                    {CATEGORIES.map(c => <option key={c} value={c === 'All Categories' ? '' : c}>{c}</option>)}
+                  </select>
+                </div>
+                <div>
+                  <label style={{ color: '#64748b', fontSize: '0.78rem', display: 'block', marginBottom: 6 }}>Brand</label>
+                  <input type="text" className="input-dark" placeholder="e.g. Sony" value={brand} onChange={e => setBrand(e.target.value)} style={{ height: 42 }} />
+                </div>
+                <div>
+                  <label style={{ color: '#64748b', fontSize: '0.78rem', display: 'block', marginBottom: 6 }}>Sort By</label>
+                  <select className="input-dark" value={sortBy} onChange={e => setSortBy(e.target.value)} style={{ height: 42 }}>
+                    {SORT_OPTIONS.map(o => <option key={o.value} value={o.value}>{o.label}</option>)}
+                  </select>
+                </div>
+                <div>
+                  <label style={{ color: '#64748b', fontSize: '0.78rem', display: 'block', marginBottom: 6 }}>Max Price ($)</label>
+                  <input type="number" className="input-dark" value={maxPrice} onChange={e => setMaxPrice(Number(e.target.value))} min={1} style={{ height: 42 }} />
+                </div>
+              </div>
+            )}
           </form>
         </div>
 
-        {/* Popular Searches */}
-        <div className="fade-in-up stagger-4" style={{ textAlign: 'center' }}>
-          <p style={{ color: '#64748b', fontSize: '0.85rem', marginBottom: '12px' }}>🔥 Popular searches</p>
-          <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px', justifyContent: 'center' }}>
-            {popularSearches.map(s => (
-              <button
-                key={s}
-                onClick={() => { setQuery(s); }}
+        {/* Popular searches */}
+        <div className="fade-in-up stagger-4" style={{ textAlign: 'center', marginBottom: 60 }}>
+          <p style={{ color: '#475569', fontSize: '0.8rem', marginBottom: 10, textTransform: 'uppercase', letterSpacing: '0.08em' }}>🔥 Trending</p>
+          <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8, justifyContent: 'center' }}>
+            {POPULAR.map(s => (
+              <button key={s} onClick={() => { setQuery(s); }}
                 style={{
-                  background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.08)',
-                  color: '#94a3b8', padding: '6px 14px', borderRadius: '20px',
-                  fontSize: '0.82rem', cursor: 'pointer', transition: 'all 0.2s',
-                  fontWeight: 500,
+                  background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.07)',
+                  color: '#94a3b8', padding: '5px 14px', borderRadius: 20,
+                  fontSize: '0.82rem', cursor: 'pointer', transition: 'all 0.2s', fontWeight: 500,
                 }}
                 onMouseEnter={e => { e.target.style.background = 'rgba(99,102,241,0.1)'; e.target.style.color = '#a78bfa'; e.target.style.borderColor = 'rgba(99,102,241,0.3)'; }}
-                onMouseLeave={e => { e.target.style.background = 'rgba(255,255,255,0.04)'; e.target.style.color = '#94a3b8'; e.target.style.borderColor = 'rgba(255,255,255,0.08)'; }}
-              >
-                {s}
-              </button>
+                onMouseLeave={e => { e.target.style.background = 'rgba(255,255,255,0.03)'; e.target.style.color = '#94a3b8'; e.target.style.borderColor = 'rgba(255,255,255,0.07)'; }}
+              >{s}</button>
             ))}
           </div>
         </div>
+      </section>
 
-        {/* Stats */}
-        <div className="fade-in-up stagger-5" style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '16px', marginTop: '48px' }}>
-          {[
-            { icon: '🛒', label: 'Sites Scraped', value: '3+' },
-            { icon: '💰', label: 'Avg. Savings', value: '23%' },
-            { icon: '⚡', label: 'Search Time', value: '<5s' },
-          ].map(stat => (
-            <div key={stat.label} className="glass" style={{ padding: '20px', textAlign: 'center' }}>
-              <div style={{ fontSize: '1.8rem', marginBottom: '4px' }}>{stat.icon}</div>
-              <div style={{ fontSize: '1.4rem', fontWeight: 800, color: '#f1f5f9', fontFamily: 'Outfit, sans-serif' }}>{stat.value}</div>
-              <div style={{ fontSize: '0.78rem', color: '#64748b', marginTop: '2px' }}>{stat.label}</div>
+      {/* ── Sources strip ── */}
+      <section style={{ position: 'relative', zIndex: 1, maxWidth: 860, margin: '0 auto', padding: '0 24px 60px' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 16 }}>
+          {SOURCES.map(src => (
+            <div key={src.name} className="glass card-lift" style={{ padding: '20px 16px', textAlign: 'center', borderRadius: 16 }}>
+              <div style={{ fontSize: '1.8rem', marginBottom: 8 }}>{src.logo}</div>
+              <div style={{ fontWeight: 700, color: src.color, fontSize: '1rem', fontFamily: 'Outfit, sans-serif' }}>{src.name}</div>
+              <div style={{ color: '#475569', fontSize: '0.78rem', marginTop: 4 }}>{src.desc}</div>
             </div>
           ))}
         </div>
-      </div>
+      </section>
+
+      {/* ── How it works ── */}
+      <section style={{ position: 'relative', zIndex: 1, maxWidth: 860, margin: '0 auto', padding: '0 24px 80px' }}>
+        <h2 style={{ textAlign: 'center', fontFamily: 'Outfit, sans-serif', fontSize: '1.6rem', fontWeight: 700, color: '#e2e8f0', marginBottom: 32 }}>
+          How It Works
+        </h2>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: 20 }}>
+          {HOW_IT_WORKS.map((step, i) => (
+            <div key={step.title} className="glass" style={{ padding: '28px 20px', textAlign: 'center', borderRadius: 16, position: 'relative' }}>
+              <div style={{
+                position: 'absolute', top: -12, left: '50%', transform: 'translateX(-50%)',
+                background: 'linear-gradient(135deg, #6366f1, #8b5cf6)', borderRadius: '50%',
+                width: 24, height: 24, display: 'flex', alignItems: 'center', justifyContent: 'center',
+                fontSize: '0.7rem', fontWeight: 700, color: '#fff',
+              }}>{i + 1}</div>
+              <div style={{ fontSize: '2rem', marginBottom: 12 }}>{step.icon}</div>
+              <h3 style={{ color: '#f1f5f9', fontFamily: 'Outfit, sans-serif', fontWeight: 600, marginBottom: 8, fontSize: '1rem' }}>{step.title}</h3>
+              <p style={{ color: '#64748b', fontSize: '0.85rem', lineHeight: 1.6 }}>{step.desc}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* ── Stats ── */}
+      <section style={{ position: 'relative', zIndex: 1, maxWidth: 860, margin: '0 auto', padding: '0 24px 100px' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3,1fr)', gap: 16 }}>
+          {[
+            { icon: '🛒', label: 'Stores Scraped', value: '3' },
+            { icon: '💰', label: 'Avg. Savings', value: '28%' },
+            { icon: '⚡', label: 'Search Time', value: '<8s' },
+          ].map(stat => (
+            <div key={stat.label} className="glass" style={{ padding: '24px 16px', textAlign: 'center', borderRadius: 16 }}>
+              <div style={{ fontSize: '1.8rem', marginBottom: 4 }}>{stat.icon}</div>
+              <div style={{ fontSize: '1.7rem', fontWeight: 800, color: '#f1f5f9', fontFamily: 'Outfit, sans-serif' }}>{stat.value}</div>
+              <div style={{ fontSize: '0.78rem', color: '#64748b', marginTop: 4 }}>{stat.label}</div>
+            </div>
+          ))}
+        </div>
+      </section>
     </div>
   );
 }

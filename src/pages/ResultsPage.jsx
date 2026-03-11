@@ -103,7 +103,7 @@ export default function ResultsPage() {
         <>
           <div className="glass" style={{ padding: '16px 20px', marginBottom: '20px', display: 'flex', alignItems: 'center', gap: '12px' }}>
             <div style={{ width: '20px', height: '20px', border: '2px solid rgba(99,102,241,0.3)', borderTopColor: '#6366f1', borderRadius: '50%', animation: 'spin 1s linear infinite' }} />
-            <span style={{ color: '#94a3b8', fontSize: '0.9rem' }}>🔍 Scraping Amazon, eBay & Walmart for the best deals…</span>
+            <span style={{ color: '#94a3b8', fontSize: '0.9rem' }}>🔍 Scraping Amazon, Flipkart &amp; Myntra for the best deals…</span>
           </div>
           <LoadingSkeleton />
         </>

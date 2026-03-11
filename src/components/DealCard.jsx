@@ -4,10 +4,11 @@ import { addBookmark } from '../services/user.service';
 import toast from 'react-hot-toast';
 
 const SOURCE_COLORS = {
-  Amazon: { bg: 'rgba(255,153,0,0.12)', color: '#FF9900', border: 'rgba(255,153,0,0.3)', emoji: '🛒' },
-  eBay: { bg: 'rgba(0,100,212,0.12)', color: '#5ba4f5', border: 'rgba(91,164,245,0.3)', emoji: '🏷️' },
-  Walmart: { bg: 'rgba(0,113,206,0.12)', color: '#60abf8', border: 'rgba(96,171,248,0.3)', emoji: '🏪' },
+  Amazon:   { bg: 'rgba(255,153,0,0.12)',  color: '#FF9900', border: 'rgba(255,153,0,0.3)',  emoji: '🛒' },
+  Flipkart: { bg: 'rgba(40,116,240,0.12)', color: '#2874F0', border: 'rgba(40,116,240,0.3)', emoji: '🔵' },
+  Myntra:   { bg: 'rgba(255,63,108,0.12)', color: '#FF3F6C', border: 'rgba(255,63,108,0.3)', emoji: '🩷' },
 };
+
 
 export default function DealCard({ product, rank }) {
   const { isAuthenticated } = useAuth();

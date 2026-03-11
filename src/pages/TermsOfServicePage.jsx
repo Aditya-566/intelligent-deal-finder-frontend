@@ -72,11 +72,11 @@ export default function TermsOfServicePage() {
       </Section>
 
       <Section title="7. Intellectual Property">
-        <p>All content, branding, and code of the Service are owned by <strong style={{ color: '#f1f5f9' }}>[YOUR_BUSINESS_NAME]</strong>. Product images and names remain the property of their respective retailers.</p>
+        <p>All content, branding, and code of the Service are owned by <strong style={{ color: '#f1f5f9' }}>Intelligent Deal Finder</strong>. Product images and names remain the property of their respective retailers.</p>
       </Section>
 
       <Section title="8. Limitation of Liability">
-        <p>To the fullest extent permitted by law, <strong style={{ color: '#f1f5f9' }}>[YOUR_BUSINESS_NAME]</strong> shall not be liable for any indirect, incidental, special, or consequential damages arising from your use of the Service, including but not limited to loss of profits or data.</p>
+        <p>To the fullest extent permitted by law, <strong style={{ color: '#f1f5f9' }}>Intelligent Deal Finder</strong> shall not be liable for any indirect, incidental, special, or consequential damages arising from your use of the Service, including but not limited to loss of profits or data.</p>
       </Section>
 
       <Section title="9. Changes to Terms">
@@ -85,10 +85,10 @@ export default function TermsOfServicePage() {
 
       <Section title="10. Contact">
         <p>
-          Questions? Contact us at: <strong style={{ color: '#6366f1' }}>[YOUR_EMAIL]</strong>
+          Questions? Contact us at: <strong style={{ color: '#6366f1' }}>aditya566sharma@gmail.com</strong>
         </p>
         <p style={{ marginTop: 12, fontSize: '0.85rem', color: '#64748b' }}>
-          ⚠️ <em>Customise the placeholders above with your actual business details. Consider having a lawyer review these terms before going live.</em>
+          📌 <em>These terms apply to all users of the Intelligent Deal Finder service.</em>
         </p>
       </Section>
     </div>
